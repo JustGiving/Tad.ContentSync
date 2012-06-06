@@ -37,13 +37,13 @@ $(document).ready(function () {
         } else if (!leftAvailable && rightAvailable) {
             diffRight = right.html();
             diffLeft = diffRight;
-            $('#diff-view .preview-right').attr("src", _remoteUrl+"/Admin/ContentSync/Preview/" + right.attr('id'));
+            $('#diff-view .preview-right').attr("src", _remoteUrl + "/Admin/ContentSync/Preview/" + right.parent().attr('id'));
         }
         else if (leftAvailable && rightAvailable) {
             diffLeft = left.html();
             diffRight = right.html();
             $('#diff-view .preview-left').attr("src", "/en/Admin/ContentSync/Preview/" + left.parent().attr('id'));
-            $('#diff-view .preview-right').attr("src", _remoteUrl+"/Admin/ContentSync/Preview/" + right.attr('id'));
+            $('#diff-view .preview-right').attr("src", _remoteUrl + "/Admin/ContentSync/Preview/" + right.attr('id'));
         }
         var diff = prettydiff({ source: diffLeft, diff: diffRight, mode: 'diff', lang: 'auto', diffview: 'inline'/*'sidebyside*/, sourcelabel: 'Local Version', difflabel: 'Remote Version' });
         $('#diff-view .diff-view').html(diff[1]);
@@ -109,7 +109,7 @@ $(document).ready(function () {
         $('input[name=direction]').val('down');
     }
     function synchronise() {
-        
+
     }
 });
 

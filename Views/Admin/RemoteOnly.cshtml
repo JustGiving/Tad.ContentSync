@@ -90,7 +90,7 @@
                             <input type="checkbox" name="sync" id="::@pair.Right.PartValue("IdentityPart", "Identifier")" value="::@pair.Right.ContentIdentifier()"/>
                             <label class="forcheckbox" for="::@pair.Right.PartValue("IdentityPart", "Identifier")">@pair.Right.DisplayLabel()</label>
                             <a href="#" class="link-show-diff">View</a>
-                            <div class="source left">@Html.Raw(pair.Right.Entitize())</div>
+                            <div class="source right">@Html.Raw(pair.Right.Entitize())</div>
                         </li>
                     }
                 </ul>

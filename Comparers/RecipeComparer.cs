@@ -10,8 +10,8 @@ namespace Tad.ContentSync.Comparers
     {
         public RecipeComparisonResult Compare(Recipe left, Recipe right, Func<XElement, XElement, bool> comparison)
         {
-            var leftParts = left.RecipeSteps.SingleOrDefault(s => s.Name == "Data").Step.Elements().ToList();
-            var rightParts = right.RecipeSteps.SingleOrDefault(s => s.Name == "Data").Step.Elements().ToList();
+            var leftParts = left.RecipeSteps.Where(s => s.Name == "Data").SingleOrDefault().Step.Elements().ToList();
+            var rightParts = right.RecipeSteps.Where(s => s.Name == "Data").SingleOrDefault().Step.Elements().ToList();
 
             var matching = new List<ContentPair>();
             var unmatched = new List<ContentPair>();
@@ -19,7 +19,7 @@ namespace Tad.ContentSync.Comparers
 
             // enumerate content items
             for (int leftIndex = 0; leftIndex < leftParts.Count(); leftIndex++)
-            {
+            {	
                 matched = false;
                 var leftPart = leftParts.ElementAt(leftIndex);
                 for (int rightIndex = 0; rightIndex < rightParts.Count(); rightIndex++)
@@ -28,8 +28,8 @@ namespace Tad.ContentSync.Comparers
                     if (comparison(leftPart, rightPart))
                     {
                         matching.Add(new ContentPair(leftPart, rightPart));
-                        rightParts.Remove(rightPart);
                         leftParts.Remove(leftPart);
+                        rightParts.Remove(rightPart);
                         leftIndex--;
                         matched = true;
                         break;
@@ -44,7 +44,9 @@ namespace Tad.ContentSync.Comparers
                 }
             }
 
-            unmatched.AddRange(rightParts.Select(part => new ContentPair(null, part)));
+            unmatched.AddRange(
+                rightParts
+                .Select(part => new ContentPair(null, part)));
 
             return new RecipeComparisonResult(matching, unmatched);
         }

@@ -273,9 +273,7 @@ namespace Tad.ContentSync.Controllers
             var layerNameComparer = new LayerNameComparer();
 
             var comparison = new RecipeComparer().Compare(localRecipe, remoteRecipe,
-                            (left, right) => contentTypeComparer.IsMatch(left, right)
-                                            && (identifierComparer.IsMatch(left, right) ||
-                                            layerNameComparer.IsMatch(left, right, false)));
+                            (left, right) => identifierComparer.IsMatch(left, right));
 
             var localonly = comparison.Unmatched
                 .Where(pair => pair.Left == null)
