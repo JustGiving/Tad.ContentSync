@@ -8,8 +8,13 @@ namespace Tad.ContentSync.Comparers
     {
         public bool IsMatch(XElement leftContentItem, XElement rightContentItem, bool allowFalsePositives = false)
         {
-            var identityLeft = leftContentItem.Attribute("Id");
-            var identityRight = rightContentItem.Attribute("Id");
+            var identityLeft = leftContentItem.Element("IdentityPart") != null 
+                ? leftContentItem.Element("IdentityPart").Attribute("Identifier")
+                : leftContentItem.Attribute("Id");
+
+            var identityRight = rightContentItem.Element("IdentityPart") != null
+                ? rightContentItem.Element("IdentityPart").Attribute("Identifier")
+                : rightContentItem.Attribute("Id");
 
             if (identityLeft == null && identityRight == null)
                 return allowFalsePositives;
