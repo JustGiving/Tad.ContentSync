@@ -268,9 +268,7 @@ namespace Tad.ContentSync.Controllers
         }
         private IOrderedEnumerable<IGrouping<string, IGrouping<XElement, ContentPair>>> BuildRemoteOnlyViewModel(Recipe localRecipe, Recipe remoteRecipe)
         {
-            var contentTypeComparer = new ContentTypeContentComparer();
             var identifierComparer = new IdentifierContentComparer();
-            var layerNameComparer = new LayerNameComparer();
 
             var comparison = new RecipeComparer().Compare(localRecipe, remoteRecipe,
                             (left, right) => identifierComparer.IsMatch(left, right));
